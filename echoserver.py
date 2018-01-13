@@ -3,7 +3,9 @@ import json
 import requests
 
 app = Flask(__name__)
-
+#url: https://fbmtest1.herokuapp.com/
+#facebook page: Fbmtest1  access token: 
+#facebook app: Jfbmtest1
 #from tutorial https://tsaprailis.com/2016/06/02/How-to-build-and-deploy-a-Facebook-Messenger-bot-with-Python-and-Flask-a-tutorial/
 #requirements.txt: web: gunicorn echoserver:app
 # pip install flask
@@ -13,7 +15,7 @@ app = Flask(__name__)
 
 # This needs to be filled with the Page Access Token that will be provided
 # by the Facebook App that will be created.
-PAT = ''
+PAT = 'EAAF4eghnRP0BAJYrSUoBdBxCDdIZCguIGD5qFoyG6CnQxFFU8EQGjY4IZCI3oIe3NZCF5NdHkSyxgj4MYJZCpniZCDnBieJnorx9Bci1i0MoHgo4qSaEsIZBnf2ZBrvSLGz1B389gZB3kSmRagRTMdTZAr3sgXCuK9MuVZCUKWAJRIwAZDZD'
 
 @app.route('/', methods=['GET'])
 def handle_verification():
