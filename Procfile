@@ -1,1 +1,1 @@
-requirements.txt: web: gunicorn echoserver:app
+web: gunicorn echoserver:app
