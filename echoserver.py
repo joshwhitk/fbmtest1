@@ -34,7 +34,7 @@ def handle_messages():
   print payload
   for sender, message in messaging_events(payload):
     print "Incoming from %s: %s" % (sender, message)
-    message = "you said: " + message
+    message = "actually, you said: " + message
     send_message(PAT, sender, message)
   return "ok"
 
