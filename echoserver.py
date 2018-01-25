@@ -3,6 +3,8 @@ import json
 import requests
 import editor
 
+# ======================================
+
 app = Flask(__name__)
 #url: https://fbmtest1.herokuapp.com/
 #facebook page: Fbmtest1  access token: 
@@ -88,3 +90,44 @@ def save_senderlist():
 
 if __name__ == '__main__':
   app.run()
+
+
+# =======================================
+# GAME LOGIC
+# =======================================
+
+players-list = ['oscar', 'j', 'angus']
+current-location = ''
+
+def init_game(sender, message):
+    print ("game got " + message + " from " + sender)
+    nextcmd = ''
+    if find_player(sender):
+        game_state = load_game(sender)
+        play(sender, game_state)
+    else:
+        create_player(sender)
+        nextcmd = play(sender,'new')
+    if nextcmd == 'quit':
+        save_game(sender)
+        return False
+    else return True
+
+def find_player(sender):
+    if sender in players-list:
+        return True
+    else return False
+
+def load_game(sender):
+    current-location = "Placheholder Oakland"
+
+def play(player_name, game_status):
+    while nextcmd != 'quit':
+        send_message(PAT, sender, current-location + " command? (quit):")
+    return nextcmd
+
+def create_player(sender):
+    players-list.append(sender)
+    return sender
+
+
