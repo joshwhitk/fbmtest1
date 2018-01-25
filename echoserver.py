@@ -1,13 +1,10 @@
 from flask import Flask, request
 import json
 import requests
-import editor
-
-# ======================================
 
 app = Flask(__name__)
 #url: https://fbmtest1.herokuapp.com/
-#facebook page: Fbmtest1  access token: 
+#facebook page: Fbmtest1  access token:
 #facebook app: Jfbmtest1
 #from tutorial https://tsaprailis.com/2016/06/02/How-to-build-and-deploy-a-Facebook-Messenger-bot-with-Python-and-Flask-a-tutorial/
 #requirements.txt: web: gunicorn echoserver:app
@@ -22,34 +19,23 @@ PAT = 'EAAF4eghnRP0BAJYrSUoBdBxCDdIZCguIGD5qFoyG6CnQxFFU8EQGjY4IZCI3oIe3NZCF5NdH
 
 @app.route('/', methods=['GET'])
 def handle_verification():
-  print ("Handling Verification.")
+  print "Handling Verification."
   if request.args.get('hub.verify_token', '') == 'my_voice_is_my_password_verify_me':
-    print ("Verification successful!")
+    print "Verification successful!"
     return request.args.get('hub.challenge', '')
   else:
-    print ("Verification failed!")
+    print "Verification failed!"
     return 'Error, wrong validation token'
 
 @app.route('/', methods=['POST'])
 def handle_messages():
-  print ("Handling Messages")
+  print "Handling Messages"
   payload = request.get_data()
-  print (payload)
+  print payload
   for sender, message in messaging_events(payload):
-    print ("Incoming from %s: %s" % (sender, message))
-
-    # is this a new, or continuing chat?
-    # get reply message from appropriate code
-    if message == "play":
-      print ("Begin Game Mode")
-      game_state = 'keep playing'
-      while game_state == 'keep playing':
-        payload = request.get_data()
-        for sender, message in messaging_events(payload):
-          if game(sender, message) != True:
-            game_state == 'stop'
-            print ("End Game Mode")
-
+    print "Incoming from %s: %s" % (sender, message)
+    message = "Hugo heard you say: " + message
+    send_message(PAT, sender, message)
   return "ok"
 
 def messaging_events(payload):
@@ -64,6 +50,7 @@ def messaging_events(payload):
     else:
       yield event["sender"]["id"], "I can't echo this"
 
+
 def send_message(token, recipient, text):
   """Send the message text to recipient with id recipient.
   """
@@ -76,21 +63,10 @@ def send_message(token, recipient, text):
     }),
     headers={'Content-type': 'application/json'})
   if r.status_code != requests.codes.ok:
-    print (r.text)
-
-def load_senderlist():
-  senders = {}
-  #look for save file
-  # load senders from save file
-  print ("senders loaded")
-
-def save_senderlist():
-  # init save file
-  #write list of senders to server
+    print r.text
 
 if __name__ == '__main__':
-  app.run()
-
+    app.run()
 
 # =======================================
 # GAME LOGIC
